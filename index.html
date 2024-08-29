@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workout Plan Modifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Workout Plan Modifier</h1>
+
+        <form id="workout-modifier-form"> <!-- Added form element -->
+            <div class="form-groups-container">
+                <!-- Current Routine Field -->
+                <div class="form-group" id="current-routine-group">
+                    <label for="current-routine">What's your current routine?</label>
+                    <div id="routine-list">
+                        <!-- Routine steps will be added here dynamically -->
+                    </div>
+                    <button type="button" id="add-step">+</button> <!-- Add Step Button -->
+                </div>
+
+                <!-- Muscle Group Feeling Field -->
+                <div class="form-group" id="muscle-feelings-group">
+                    <label for="muscle-feelings">What's sore today?</label>
+                    <div class="checkbox-group" id="muscle-feelings">
+                        <input type="checkbox" id="arms" name="muscle-group" value="arms">
+                        <label for="arms">Arms</label>
+
+                        <input type="checkbox" id="shoulders" name="muscle-group" value="shoulders">
+                        <label for="shoulders">Shoulders</label>
+
+                        <input type="checkbox" id="chest" name="muscle-group" value="chest">
+                        <label for="chest">Chest</label>
+
+                        <input type="checkbox" id="back" name="muscle-group" value="back">
+                        <label for="back">Back</label>
+
+                        <input type="checkbox" id="legs" name="muscle-group" value="legs">
+                        <label for="legs">Legs</label>
+
+                        <input type="checkbox" id="core" name="muscle-group" value="core">
+                        <label for="core">Core</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Modify</button> <!-- Modify Workout Button -->
+        </form>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
