@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
 dotenv.config(); // Load .env file
 
@@ -12,47 +12,34 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-async function fetchWithRetry(url, options, retries = 5, delay = 5000) {
-    for (let i = 0; i < retries; i++) {
-        const response = await fetch(url, options);
-        const data = await response.json();
+const openai = new OpenAI({
+    baseURL: "https://api.cow.rip/api/v1",
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
-        if (response.ok) {
-            return data;
-        } else if (data.error && data.error.includes('currently loading')) {
-            console.log(`Model is still loading, retrying in ${delay / 1000} seconds...`);
-            await new Promise(res => setTimeout(res, delay));
-        } else {
-            throw new Error(data.error || 'Unknown error');
-        }
-    }
-    throw new Error('Failed to get a response after multiple attempts');
+async function runOpenAI(prompt) {
+    const chatCompletion = await openai.chat.completions.create({
+        messages: [{ role: "user", content: prompt }],
+        model: "gpt-4o-mini",
+    });
+
+    return chatCompletion.choices[0].message.content;
 }
 
 app.post('/sendToChatGPT', async (req, res) => {
     const { prompt } = req.body;
-    const apiKey = process.env.HUGGING_FACE_API_KEY;
 
     try {
-        const data = await fetchWithRetry('https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6b', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                inputs: 'what is two plus two?',
-                parameters: { max_length: 200 },
-            }),
-        });
-
-        res.json(data);
+        // Call the OpenAI function
+        const result = await runOpenAI(prompt);
+        res.json({ message: result });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ error: 'Error sending data to Hugging Face API' });
+        res.status(500).json({ error: 'Error occurred while processing your request.' });
     }
 });
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
