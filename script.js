@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             alert('An error occurred while sending data to OpenAI.');
         });
-
+        /*
         // Send the request to your test server
         fetch('http://localhost:3000/test', {
             method: 'POST',
@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             alert('An error occurred while sending data to the test server.');
         });
+        */
     });
     
 });
