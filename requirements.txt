@@ -1,0 +1,5 @@
+node-fetch
+express
+dotenv
+cors
+body-parser

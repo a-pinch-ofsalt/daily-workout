@@ -85,17 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Prepare the prompt
         const prompt = `Given the following workout routine: ${routineSteps.join(', ')} and these sore muscle groups: ${muscleGroups.join(', ')}, please suggest modifications or a new routine.`;
         
-        // Send the request to the OpenAI API
-        fetch('https://api.openai.com/v1/chat/completions', {
+        // Send the request to your Node.js server, which forwards it to the OpenAI API
+        fetch('http://localhost:3000/sendToChatGPT', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer YOUR_OPENAI_API_KEY` // Replace with your actual OpenAI API key
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                model: "gpt-4", // or another model you're using
-                messages: [{role: "user", content: prompt}]
-            })
+            body: JSON.stringify({ prompt: prompt })
         })
         .then(response => response.json())
         .then(data => {
