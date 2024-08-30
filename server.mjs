@@ -29,6 +29,8 @@ async function runOpenAI(prompt) {
 app.post('/sendToChatGPT', async (req, res) => {
     const { prompt } = req.body;
 
+    /*console.log(`prompt = ${prompt}}`);
+    res.json({ message: 'ALOHA{Sprint-1000m, Jonas-3000000000ft, Rock Climbing-30002092034829384K}' });*/
     try {
         // Call the OpenAI function
         const result = await runOpenAI(prompt);

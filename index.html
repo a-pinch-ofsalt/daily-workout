@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,50 +8,87 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>AI Workout Plan Modifier</h1>
 
-        <form id="workout-modifier-form"> <!-- Added form element -->
+        <form id="workout-modifier-form">
             <div class="form-groups-container">
-                <!-- Current Routine Field -->
+                <div class="form-group" id="muscle-feelings-group">
+                    <label for="muscle-feelings">What's sore today?</label>
+                    <div class="button-group" id="muscle-feelings">
+                        <div class="muscle-group-button">Legs</div>
+                        <div class="muscle-group-button">Arms</div>
+                        <div class="muscle-group-button">Back</div>
+                        <div class="muscle-group-button">Chest</div>
+                        <div class="muscle-group-button">Shoulders</div>
+                        <div class="muscle-group-button">Abs</div>
+                    </div>
+                </div>
+
                 <div class="form-group" id="current-routine-group">
                     <label for="current-routine">What's your current routine?</label>
                     <div id="routine-list">
-                        <!-- Routine steps will be added here dynamically -->
+                        <!-- Routine steps will be dynamically added here -->
                     </div>
-                    <button type="button" id="add-step">+</button> <!-- Add Step Button -->
-                </div>
 
-                <!-- Muscle Group Feeling Field -->
-                <div class="form-group" id="muscle-feelings-group">
-                    <label for="muscle-feelings">What's sore today?</label>
-                    <div class="checkbox-group" id="muscle-feelings">
-                        <input type="checkbox" id="arms" name="muscle-group" value="arms">
-                        <label for="arms">Arms</label>
-
-                        <input type="checkbox" id="shoulders" name="muscle-group" value="shoulders">
-                        <label for="shoulders">Shoulders</label>
-
-                        <input type="checkbox" id="chest" name="muscle-group" value="chest">
-                        <label for="chest">Chest</label>
-
-                        <input type="checkbox" id="back" name="muscle-group" value="back">
-                        <label for="back">Back</label>
-
-                        <input type="checkbox" id="legs" name="muscle-group" value="legs">
-                        <label for="legs">Legs</label>
-
-                        <input type="checkbox" id="core" name="muscle-group" value="core">
-                        <label for="core">Core</label>
-                    </div>
+                    <button type="button" id="add-step" class="fancy-button">Add Step</button>
                 </div>
             </div>
 
-            <button type="submit">Modify</button> <!-- Modify Workout Button -->
+            <button type="submit" class="fancy-button">Modify</button>
         </form>
+
+        <!-- Container to display the suggested workout -->
+        <div id="suggested-workout-container" class="suggested-workout-container">
+            <h2>Suggested Workout</h2>
+            <ol id="suggested-workout-list" class="suggested-workout-list"></ol>
+        </div>
     </div>
 
+    <!-- Add this inside the body tag, preferably near the end -->
+    <template id="workout-step-template">
+        <div class="routine-step entering">
+            <input type="text" placeholder="Enter workout step..." class="routine-input">
+    
+            <!-- Sets, Reps per Set, and Seconds per Rep -->
+            <div class="input-group">
+                <input type="number" name="setsInput" class="sets-input">
+                <label for="setsInput">Sets</label>
+            </div>
+            <div class="input-group">
+                <input type="number" name="repsPerSetInput" class="reps-per-set-input">
+                <label for="repsPerSetInput">Reps per Set</label>
+            </div>
+            <div class="input-group">
+                <input type="number" name="secondsPerRepInput" class="seconds-per-rep-input">
+                <label for="secondsPerRepInput">Seconds per Rep</label>
+            </div>
+    
+            <!-- Bodyweight/Weights Slider -->
+            <div class="slider-container" data-slider="bodyweight-weights">
+                <div class="slider-background"></div>
+                <div class="slider-option" data-type="bodyweight">Bodyweight</div>
+                <div class="slider-option active" data-type="weights">Weights</div>
+            </div>
+    
+            <!-- Weight and Unit Toggle -->
+            <div class="weight-section">
+                <input type="number" name="weightInput" class="weight-input">
+                <div class="slider-container" data-slider="kg-lb">
+                    <div class="slider-background"></div>
+                    <div class="slider-option active" data-unit="lb">lb</div>
+                    <div class="slider-option" data-unit="kg">kg</div>
+                </div>
+            </div>
+            
+    
+            <button type="button" class="remove-step">✖</button>
+        </div>
+    </template>
+    
     <script src="script.js" defer></script>
 </body>
+
 </html>
