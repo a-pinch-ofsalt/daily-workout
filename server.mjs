@@ -9,14 +9,16 @@ dotenv.config(); // Load .env file
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 
+// Initialize OpenAI with the API key from .env
 const openai = new OpenAI({
     baseURL: "https://api.cow.rip/api/v1",
     apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Define a function to call OpenAI
 async function runOpenAI(prompt) {
     const chatCompletion = await openai.chat.completions.create({
         messages: [{ role: "user", content: prompt }],
@@ -26,13 +28,11 @@ async function runOpenAI(prompt) {
     return chatCompletion.choices[0].message.content;
 }
 
+// Handle POST requests to /sendToChatGPT
 app.post('/sendToChatGPT', async (req, res) => {
     const { prompt } = req.body;
 
-    console.log(`prompt = ${prompt}`);
-
     try {
-        // Call the OpenAI function
         const result = await runOpenAI(prompt);
         res.json({ message: result });
     } catch (error) {
@@ -41,13 +41,12 @@ app.post('/sendToChatGPT', async (req, res) => {
     }
 });
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+// Handle OPTIONS preflight requests
+app.options('/sendToChatGPT', cors(), (req, res) => {
+    res.sendStatus(200);
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
