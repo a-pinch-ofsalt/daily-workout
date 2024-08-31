@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Please format it like this: ALOHA{exercise1name_10lb(or kg, whichever I used)_10 reps_3 sets_instructionsIn3Sentences+exercise2name_...+...}`;
 
         // Send data to /sendToChatGPT
-        fetch('/api/sendToChatGPT', {
+        fetch('../api/sendToChatGPT', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
