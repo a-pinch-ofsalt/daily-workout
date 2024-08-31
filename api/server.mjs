@@ -29,6 +29,8 @@ async function runOpenAI(prompt) {
 app.post('/sendToChatGPT', async (req, res) => {
     const { prompt } = req.body;
 
+    console.log(`prompt = ${prompt}`);
+
     try {
         // Call the OpenAI function
         const result = await runOpenAI(prompt);
