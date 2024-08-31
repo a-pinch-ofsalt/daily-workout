@@ -6,7 +6,15 @@
       "use": "@vercel/node"
     },
     {
-      "src": "public/**/*",
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "script.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "style.css",
       "use": "@vercel/static"
     }
   ],
@@ -16,21 +24,13 @@
       "destination": "/server.mjs"
     },
     {
-      "source": "/(.*)",
-      "destination": "/public/$1"
+      "source": "/",
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
       "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Origin, X-Requested-With, Content-Type, Accept" }
-      ]
-    },
-    {
-      "source": "/sendToChatGPT",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
