@@ -14,6 +14,10 @@
       {
         "source": "/api/(.*)",
         "destination": "/api/server.mjs"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/public/$1"
       }
     ],
     "headers": [
